@@ -1,19 +1,19 @@
-# íº€ Terraform AWS EC2 Lab
+# ğŸš€ Terraform AWS EC2 Lab
 
 A hands-on Infrastructure as Code (IaC) project using Terraform to deploy and manage AWS EC2 instances.
 
-## í³‹ Project Overview
+## ğŸ“‹ Project Overview
 
 This project demonstrates real-world Terraform skills by provisioning AWS infrastructure from scratch using code â€” no manual clicking in the console.
 
-## í» ï¸ Technologies Used
+## ğŸ› ï¸ Technologies Used
 
 - Terraform v1.x
 - AWS EC2
 - AWS CLI
 - Git & GitHub
 
-## í³ Project Structure
+## ğŸ“ Project Structure
 
 terraform-aws-ec2-lab/
 â”œâ”€â”€ main.tf          # Main infrastructure code
@@ -27,7 +27,7 @@ terraform-aws-ec2-lab/
 - EC2 instance (t2.micro) in us-east-1
 - Tagged and ready for production use
 
-## íº€ How to Use
+## ğŸš€ How to Use
 
 ### Prerequisites
 - Terraform installed
@@ -52,25 +52,25 @@ terraform-aws-ec2-lab/
 5. Destroy when done
    terraform destroy
 
-## í³¸ Proof It Worked
+## ğŸ“¸ Proof It Worked
 
 ![EC2 Running](screenshots/ec2-running.png)
 
-## í·  What I Learned
+## ğŸ§  What I Learned
 
 - Writing Terraform providers and resources
 - AWS infrastructure provisioning with IaC
 - Terraform workflow: init â†’ plan â†’ apply â†’ destroy
 - Version control for infrastructure code
 
-## í³ˆ Coming Next
+## ğŸ“ˆ Coming Next
 
 - Lab 2: Variables & Outputs
 - Lab 3: Remote State with S3
 - Lab 4: VPC & Security Groups
 - Lab 5: Terraform Modules
 
-## í±¨â€í²» Author
+## ğŸ‘¨â€ğŸ’» Author
 
 **Thierno**
-[GitHub](https://github.com/Thierno5) | [LinkedIn](#)
+[GitHub](https://github.com/Thierno5) | [LinkedIn]( [LinkedIn](https://www.linkedin.com/in/thierno-balde-951332246)
