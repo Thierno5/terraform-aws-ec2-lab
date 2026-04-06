@@ -1,76 +1,97 @@
-# 🚀 Terraform AWS EC2 Lab
+# Terraform AWS EC2 Lab
 
-A hands-on Infrastructure as Code (IaC) project using Terraform to deploy and manage AWS EC2 instances.
+Infrastructure as Code project using Terraform to provision and manage AWS EC2 instances. Built as Lab 1 of a 5-part Terraform series.
 
-## 📋 Project Overview
+---
 
-This project demonstrates real-world Terraform skills by provisioning AWS infrastructure from scratch using code — no manual clicking in the console.
-
-## 🛠️ Technologies Used
+## Technologies Used
 
 - Terraform v1.x
-- AWS EC2
+- Amazon Web Services (EC2)
 - AWS CLI
 - Git & GitHub
+- VS Code
 
-## 📁 Project Structure
+---
 
-terraform-aws-ec2-lab/
-├── main.tf          # Main infrastructure code
-├── variables.tf     # Input variables
-├── outputs.tf       # Output values
-├── .gitignore       # Ignore sensitive files
-└── README.md        # Project documentation
+## Project Structure
 
-## ⚙️ What This Deploys
+    terraform-aws-ec2-lab/
+    ├── main.tf                  
+    ├── variables.tf             
+    ├── outputs.tf               
+    ├── .terraform.lock.hcl      
+    ├── .gitignore               
+    ├── screenshots/             
+    └── README.md                
 
-- EC2 instance (t2.micro) in us-east-1
-- Tagged and ready for production use
+---
 
-## 🚀 How to Use
+## Infrastructure Deployed
 
-### Prerequisites
-- Terraform installed
-- AWS CLI configured
-- AWS account with IAM credentials
+- EC2 instance (t2.micro) in us-east-1b
+- Amazon Linux AMI
+- Tagged as TerraformLab
+- Public IP assigned automatically
 
-### Steps
+---
 
-1. Clone the repo
-   git clone https://github.com/Thierno5/terraform-aws-ec2-lab.git
-   cd terraform-aws-ec2-lab
+## Process & Commands
 
-2. Initialize Terraform
-   terraform init
+### 1. Project Setup
+Created all required Terraform project files.
 
-3. Preview changes
-   terraform plan
+### 2. Write Terraform Code
+Defined the AWS provider and EC2 resource in main.tf with instance type, AMI, and tags. Declared input variables in variables.tf and output values in outputs.tf.
 
-4. Deploy infrastructure
-   terraform apply
+### 3. Configure AWS Credentials
+Configured the AWS CLI with access keys, region, and output format. Verified authentication using the AWS STS service.
 
-5. Destroy when done
-   terraform destroy
+### 4. Initialize Terraform
+Ran terraform init to download the AWS provider plugin and prepare the working directory.
 
-## 📸 Proof It Worked
+### 5. Plan Infrastructure
+Ran terraform plan to preview all changes before applying. Confirmed 1 resource to be created with no unexpected changes.
+
+### 6. Apply — Deploy to AWS
+Ran terraform apply and confirmed with yes. Terraform provisioned the EC2 instance in approximately 30 seconds.
+
+### 7. Verify in AWS Console
+Confirmed the instance was running in the AWS EC2 console with the correct name, type, region, and a live public IP address.
+
+### 8. Destroy Infrastructure
+Ran terraform destroy to cleanly remove all provisioned resources and avoid unnecessary AWS charges.
+
+### 9. Version Control
+Initialized a local Git repository, committed all project files, and pushed to GitHub with a descriptive commit message.
+
+---
+
+## Proof of Deployment
 
 ![EC2 Running](screenshots/ec2-running.png)
 
-## 🧠 What I Learned
+---
 
-- Writing Terraform providers and resources
-- AWS infrastructure provisioning with IaC
-- Terraform workflow: init → plan → apply → destroy
-- Version control for infrastructure code
+## Key Takeaways
 
-## 📈 Coming Next
+- Writing Terraform providers and resources from scratch
+- Understanding the full IaC workflow: init, plan, apply, destroy
+- Provisioning real cloud infrastructure without manual console interaction
+- Managing infrastructure code with Git version control
 
-- Lab 2: Variables & Outputs
+---
+
+## Coming Next
+
+- Lab 2: Variables and Outputs
 - Lab 3: Remote State with S3
-- Lab 4: VPC & Security Groups
+- Lab 4: VPC and Security Groups
 - Lab 5: Terraform Modules
 
-## 👨‍💻 Author
+---
 
-**Thierno**
-[GitHub](https://github.com/Thierno5) | [LinkedIn]( [LinkedIn](https://www.linkedin.com/in/thierno-balde-951332246)
+## Author
+
+**Thierno Balde**
+[GitHub](https://github.com/Thierno5) | [LinkedIn](https://www.linkedin.com/in/thierno-balde-951332246)
