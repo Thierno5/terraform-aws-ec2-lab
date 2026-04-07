@@ -490,11 +490,18 @@ Then open the pull request link and merge into main.
 ---
 
 ## Screenshots
-
+### Lab 1 — EC2 Running
 ![EC2 Running Lab 1](screenshots/ec2-running.png)
+
+### Lab 2 — Variables and Outputs
+![EC2 Variables Lab 2](screenshots/ec2-variables%20.png)
 ![EC2 Lab 2 Output](screenshots/ec2-lab2.png)
+![EC2 Lab 2 Terminal Output](screenshots/ec2.lab2-output.png)
+
+### Lab 3 — Remote State
 ![Lab 3 S3 Bucket](screenshots/lab3-s3-bucket.png)
 ![Lab 3 DynamoDB](screenshots/lab3-dynamodb.png)
+
 
 ---
 
