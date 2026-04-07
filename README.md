@@ -499,12 +499,9 @@ Then open the pull request link and merge into main.
 ![EC2 Lab 2 Terminal Output](screenshots/ec2.lab2-output.png)
 
 ### Lab 3 — Remote State
-![Lab 3 S3 Bucket](screenshots/lab3-s3-bucket.png)
-![Lab 3 DynamoDB](screenshots/lab3-dynamodb.png)
-
-
----
-
+![Lab 3 EC2](screenshots/lab3-ec2.png)
+![Lab 3 S3 Bucket](screenshots/lab3-s3-buckets.png)
+![Lab 3 DynamoDB](screenshots/lab3-dynamoDB.png)
 ## Key Takeaways
 
 - Never hardcode values in Terraform — use variables
