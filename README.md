@@ -24,7 +24,7 @@ DevOps team workflows. Every lab builds on the previous one.
 | Lab 2 | Variables and Outputs | Complete |
 | Lab 3 | Remote State with S3 and DynamoDB | Complete |
 | Lab 4 | VPC and Security Groups | Complete |
-| Lab 5 | Terraform Modules | Coming soon |
+| Lab 5 | Terraform Modules | complete |
 
 ---
 
