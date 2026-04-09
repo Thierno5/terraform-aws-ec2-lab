@@ -513,7 +513,118 @@ Then open the pull request link and merge into main.
 
 ---
 
+## Lab 4 — VPC and Security Groups
+
+### Goal
+Build a complete AWS network from scratch using Terraform modern
+best practices — replacing the default VPC with a custom, 
+production-ready network.
+
+### What was built
+- Custom VPC with CIDR block 10.0.0.0/16
+- Internet Gateway connecting VPC to the internet
+- Public subnet in us-east-1a with auto-assign public IP
+- Route table directing all traffic through the Internet Gateway
+- Security Group allowing SSH (port 22) and HTTP (port 80)
+- EC2 instance (t3.micro) deployed inside the custom VPC
+- Automatic tagging of all resources via default_tags
+
+### Modern best practices introduced
+
+**locals block** — defines reusable values used across all resources:
+
+    locals {
+      name_prefix = "${var.project}-${var.environment}"
+      common_tags = {
+        Environment = var.environment
+        Project     = var.project
+        ManagedBy   = "terraform"
+      }
+    }
+
+**default_tags in provider** — automatically tags every resource:
+
+    provider "aws" {
+      region = var.region
+      default_tags {
+        tags = local.common_tags
+      }
+    }
+
+**Variable validation** — prevents invalid values:
+
+    variable "environment" {
+      validation {
+        condition     = contains(["dev", "staging", "prod"], var.environment)
+        error_message = "Environment must be dev, staging, or prod."
+      }
+    }
+
+**t3.micro instead of t2.micro** — current generation instance type
+
+### Step 1 — Create new branch
+
+    git checkout -b lab-04-vpc
+
+### Step 2 — Create vpc.tf
+
+Create a new file:
+
+    touch vpc.tf
+
+Open vpc.tf and paste the VPC, Internet Gateway, Subnet,
+Route Table and Security Group resources. See vpc.tf in this
+branch for the full code.
+
+### Step 3 — Update main.tf
+
+Add locals block and default_tags to provider. Update EC2
+resource to reference subnet_id and vpc_security_group_ids
+from the new VPC resources.
+
+### Step 4 — Update variables.tf
+
+Replace instance_name variable with environment and project
+variables. Add vpc_cidr and public_subnet_cidr variables.
+Add validation blocks to environment and instance_type.
+
+### Step 5 — Update terraform.tfvars
+
+    region             = "us-east-1"
+    environment        = "dev"
+    project            = "terraformlab"
+    instance_type      = "t3.micro"
+    vpc_cidr           = "10.0.0.0/16"
+    public_subnet_cidr = "10.0.1.0/24"
+
+### Step 6 — Initialize and deploy
+
+    GODEBUG=preferIPv4=1 terraform init -plugin-dir=.terraform/providers -migrate-state
+    terraform plan
+    terraform apply
+
+### Step 7 — Verify in AWS Console
+
+- VPC → Your VPCs → terraformlab-dev-vpc
+- VPC → Subnets → terraformlab-dev-public-subnet
+- VPC → Security Groups → terraformlab-dev-sg
+- EC2 → Instances → terraformlab-dev-ec2 running
+
+### Step 8 — Destroy EC2 only
+
+    terraform destroy -target=aws_instance.web
+
+### What you learn
+- Building custom VPC from scratch with Terraform
+- Internet Gateway and Route Table configuration
+- Security Group firewall rules
+- locals block for consistent naming
+- default_tags for automatic resource tagging
+- Variable validation blocks
+- Current generation instance types (t3 vs t2)
+
 ## Author
 
 **Thierno Balde**
 [GitHub](https://github.com/Thierno5) | [LinkedIn](https://www.linkedin.com/in/thierno-balde-951332246)
+
