@@ -630,6 +630,124 @@ Add validation blocks to environment and instance_type.
 - Variable validation blocks
 - Current generation instance types (t3 vs t2)
 
+- ---
+## Lab 5 — Terraform Modules
+
+### Goal
+Refactor all infrastructure into reusable modules — the way
+production DevOps teams structure Terraform at scale.
+
+### What was built
+- modules/vpc — reusable network module (VPC, IGW, subnet, route table, security group)
+- modules/ec2 — reusable compute module (EC2 instance)
+- Root main.tf calls both modules cleanly
+- Any team can reuse these modules with different variables
+
+### What changes from Lab 4
+
+In Lab 4 all resources lived in one flat folder.
+In Lab 5 resources are packaged into modules.
+The root main.tf only calls modules — no resources directly.
+
+### Step 1 — Create new branch
+
+    git checkout -b lab-05-modules
+
+### Step 2 — Create module folders
+
+    mkdir -p modules/vpc
+    mkdir -p modules/ec2
+
+### Step 3 — Create modules/vpc files
+
+    touch modules/vpc/main.tf modules/vpc/variables.tf modules/vpc/outputs.tf
+
+Open modules/vpc/main.tf and add VPC, Internet Gateway, Subnet,
+Route Table and Security Group resources using var.name_prefix
+for consistent naming.
+
+Open modules/vpc/variables.tf and define vpc_cidr,
+public_subnet_cidr, region and name_prefix variables.
+
+Open modules/vpc/outputs.tf and export vpc_id,
+public_subnet_id, security_group_id and internet_gateway_id.
+
+### Step 4 — Create modules/ec2 files
+
+    touch modules/ec2/main.tf modules/ec2/variables.tf modules/ec2/outputs.tf
+
+Open modules/ec2/main.tf and define the EC2 instance resource
+using var.subnet_id and var.security_group_id passed in from
+the VPC module outputs.
+
+Open modules/ec2/variables.tf and define ami, instance_type,
+subnet_id, security_group_id and name_prefix variables.
+
+Open modules/ec2/outputs.tf and export instance_id
+and instance_public_ip.
+
+### Step 5 — Update root main.tf
+
+Replace all direct resources with module calls:
+
+    module "vpc" {
+      source = "./modules/vpc"
+
+      name_prefix        = local.name_prefix
+      region             = var.region
+      vpc_cidr           = var.vpc_cidr
+      public_subnet_cidr = var.public_subnet_cidr
+    }
+
+    module "ec2" {
+      source = "./modules/ec2"
+
+      name_prefix       = local.name_prefix
+      instance_type     = var.instance_type
+      subnet_id         = module.vpc.public_subnet_id
+      security_group_id = module.vpc.security_group_id
+    }
+
+### Step 6 — Update outputs.tf
+
+Reference module outputs instead of direct resources:
+
+    output "instance_id" {
+      value = module.ec2.instance_id
+    }
+
+    output "vpc_id" {
+      value = module.vpc.vpc_id
+    }
+
+### Step 7 — Initialize and deploy
+
+    GODEBUG=preferIPv4=1 terraform init -plugin-dir=.terraform/providers -migrate-state
+    terraform plan
+    terraform apply
+
+After apply you will see every resource prefixed with module:
+
+    module.vpc.aws_vpc.main
+    module.vpc.aws_security_group.web
+    module.ec2.aws_instance.web
+
+### Step 8 — Destroy EC2 only
+
+    terraform destroy -target=module.ec2.aws_instance.web
+
+### Screenshots
+
+![Lab 5 EC2](screenshots/lab5-ec2.png)
+![Lab 5 VPC](screenshots/lab5-vpc.png)
+
+### What you learn
+- Structuring Terraform code into reusable modules
+- Passing outputs from one module as inputs to another
+- How production teams share and version infrastructure modules
+- The difference between flat Terraform and modular Terraform
+
+
 ## Author
 
 **Thierno Balde**
