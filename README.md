@@ -614,6 +614,13 @@ Add validation blocks to environment and instance_type.
 
     terraform destroy -target=aws_instance.web
 
+ ### Screenshots
+
+![Lab 4 VPC](screenshots/lab4-vpc.png)
+![Lab 4 Subnet](screenshots/lab4-subnet.png)
+![Lab 4 Security Group](screenshots/lab4-security-group.png)
+![Lab 4 EC2](screenshots/lab4-ec2.png)
+
 ### What you learn
 - Building custom VPC from scratch with Terraform
 - Internet Gateway and Route Table configuration
