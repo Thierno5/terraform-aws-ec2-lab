@@ -1,29 +1,24 @@
 output "instance_id" {
   description = "ID of the EC2 instance"
-  value       = aws_instance.web.id
+  value       = module.ec2.instance_id
 }
 
 output "instance_public_ip" {
   description = "Public IP of the EC2 instance"
-  value       = aws_instance.web.public_ip
+  value       = module.ec2.instance_public_ip
 }
 
 output "vpc_id" {
   description = "ID of the VPC"
-  value       = aws_vpc.main.id
+  value       = module.vpc.vpc_id
 }
 
 output "public_subnet_id" {
   description = "ID of the public subnet"
-  value       = aws_subnet.public.id
+  value       = module.vpc.public_subnet_id
 }
 
 output "security_group_id" {
   description = "ID of the security group"
-  value       = aws_security_group.web.id
-}
-
-output "internet_gateway_id" {
-  description = "ID of the Internet Gateway"
-  value       = aws_internet_gateway.main.id
+  value       = module.vpc.security_group_id
 }
